@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EmployeesLIst.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:EmployeesLIst.ViewModels"
+    x:Name="list"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid VerticalOptions="FillAndExpand">
+        <ListView
+            HasUnevenRows="True"
+            ItemsSource="{Binding People}"
+            VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid HeightRequest="200">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="{Binding Name}" />
+                            <Label Grid.Row="1" Text="{Binding LastName}" />
+                            <Label Grid.Row="2" Text="{Binding Salary}" />
+                            <Label Grid.Row="3" Text="{Binding Ocupation}" />
+                            <Label Grid.Row="4" Text="Borrar">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteEmployeeCommand, Source={x:Reference list}}" CommandParameter="{Binding}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+</ContentPage>
